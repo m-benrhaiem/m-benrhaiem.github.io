@@ -124,7 +124,7 @@ export const PROFILE: Profile = {
         },
         {
           title: 'Plateforme d’approbation',
-          text: 'Conception et développement en autonomie d’une plateforme full stack (Angular / Spring Boot) automatisant les workflows d’approbation\u00a0: réduction des interventions SQL manuelles, plus d’une heure gagnée par mise en production et développements liés aux approbations ramenés de 3\u00a0jours-homme à quelques minutes.',
+          text: 'Conception et développement en autonomie d’une application Full Stack (Angular / Spring Boot) automatisant les processus d’approbation et remplaçant des interventions SQL manuelles, permettant de gagner plus d’une heure par mise en production et de réduire certaines opérations de 3\u00a0jours-homme à quelques minutes.',
         },
         {
           title: 'Intégration bancaire',
@@ -136,11 +136,11 @@ export const PROFILE: Profile = {
         },
         {
           title: 'Modernisation',
-          text: 'Contribution à la migration Spring Boot / Jakarta EE et à la montée de version Angular.',
+          text: 'Contribution à la migration Spring Boot / Jakarta EE et à la montée de version Angular de la plateforme bancaire, avec adaptation du code et des dépendances.',
         },
         {
           title: 'Qualité & déploiement',
-          text: 'Tests unitaires JUnit 5, Mockito et AssertJ atteignant 80\u00a0% de couverture sur le périmètre concerné, analyse SonarQube et participation aux processus CI/CD (Jenkins, Nexus, OpenShift).',
+          text: 'Développement de tests unitaires JUnit 5, Mockito et AssertJ, avec 80\u00a0% de couverture sur les microservices développés, suivi de la qualité via SonarQube et participation aux processus CI/CD (Jenkins, Nexus, OpenShift).',
         },
       ],
       technologies: [
