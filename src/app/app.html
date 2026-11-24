@@ -273,10 +273,6 @@
             LinkedIn
             <app-icon name="external" />
           </a>
-          <a class="btn btn-outline-light" [href]="data.github" target="_blank" rel="noopener">
-            <app-icon name="code" />
-            GitHub
-          </a>
           <a class="btn btn-outline-light" [href]="data.cvFile" download="CV_Mohamed_Ben_Rhaiem.pdf">
             <app-icon name="download" />
             Télécharger le CV (PDF)
@@ -290,14 +286,9 @@
 <footer class="site-footer">
   <div class="container footer-inner">
     <span>&copy; {{ year }} {{ data.name }}</span>
-    <span class="footer-links">
-      Site développé avec Angular ·
-      <a [href]="data.sourceCode" target="_blank" rel="noopener">Code source</a>
-      ·
-      <a class="to-top" href="#top">
-        Haut de page
-        <app-icon name="arrowUp" />
-      </a>
-    </span>
+    <a class="to-top" href="#top">
+      Haut de page
+      <app-icon name="arrowUp" />
+    </a>
   </div>
 </footer>

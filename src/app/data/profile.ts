@@ -67,8 +67,6 @@ export interface Profile {
   email: string;
   linkedin: string;
   linkedinLabel: string;
-  github: string;
-  sourceCode: string;
   cvFile: string;
   photo: string;
   tagline: string;
@@ -90,8 +88,6 @@ export const PROFILE: Profile = {
   email: 'benrhaiem.med@gmail.com',
   linkedin: 'https://www.linkedin.com/in/mohamed-ben-rhaiem',
   linkedinLabel: 'linkedin.com/in/mohamed-ben-rhaiem',
-  github: 'https://github.com/m-benrhaiem',
-  sourceCode: 'https://github.com/m-benrhaiem/m-benrhaiem.github.io',
   /** Le paramètre ?v= change à chaque nouveau PDF : les navigateurs ne servent jamais une ancienne version en cache. */
   cvFile: 'CV_Mohamed_Ben_Rhaiem.pdf?v=2653787e',
   photo: 'images/mohamed-ben-rhaiem.webp',
