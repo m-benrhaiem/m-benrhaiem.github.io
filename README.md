@@ -7,6 +7,8 @@ Application Angular 22 sans zone.js (zoneless), avec composants standalone, sign
   compteurs animés (directive `appCountUp`), barre de progression de lecture, navigation qui suit la section affichée.
   Toutes respectent la préférence système « réduire les animations ».
 - Photo optimisée (`NgOptimizedImage`, WebP), site responsive.
+- Section Projets : cartes avec captures d'écran (WebP en deux tailles, chargement différé), sélecteur de capture
+  et visionneuse plein écran (`<dialog>` : clavier, glissement au doigt, retour du focus à la fermeture).
 - Mode clair / sombre : bouton dans l'en-tête (transition circulaire via l'API View Transitions), choix mémorisé,
   préférence du système par défaut, appliqué avant le premier affichage (pas de flash).
 - SEO : balises Open Graph / Twitter avec image de partage, données structurées JSON-LD (`Person`).
@@ -27,10 +29,14 @@ Après le premier `npm install`, versionner le fichier `package-lock.json` : le 
 
 ## Mettre le contenu à jour
 
-Tout le texte du site (profil, expériences, compétences, formation…) est dans un seul fichier :
+Tout le texte du site (profil, expériences, projets, compétences, formation…) est dans un seul fichier :
 `src/app/data/profile.ts`. Le CV téléchargeable est `public/CV_Mohamed_Ben_Rhaiem.pdf` : après l'avoir remplacé,
 changez la valeur `?v=` de `cvFile` dans `profile.ts` (par exemple avec les 8 premiers caractères de `sha256sum`)
 pour que les navigateurs ne gardent pas l'ancienne version en cache.
+
+Pour ajouter un projet : déposer ses captures dans `public/images/projects/` (une grande version, 1024 à 1280 px
+de large, et une version de 640 px, en WebP), puis ajouter une entrée dans `projects` de `profile.ts`
+(`featured: true` pour une carte large en tête de section).
 
 ## Déployer sur GitHub Pages
 
@@ -63,6 +69,8 @@ src/
   app/
     app.config.ts       configuration (détection de changements zoneless)
     app.ts              composant racine (navigation active, en-tête, menu mobile)
+    project-card.*      carte d'un projet (captures, description, technologies)
+    project-viewer.*    visionneuse plein écran des captures
     app.html            template de la page
     data/profile.ts     contenu du portfolio
     reveal.directive.ts apparition au défilement
@@ -72,7 +80,8 @@ src/
 public/
   CV_Mohamed_Ben_Rhaiem.pdf
   favicon.svg
-  images/               photo (WebP) et image de partage Open Graph
+  images/               photo (WebP), image de partage Open Graph
+  images/projects/      captures d'écran des projets (WebP)
 scripts/
   smoke-test.mjs        test de fumée (Playwright + Chrome)
 ```

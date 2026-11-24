@@ -1,0 +1,38 @@
+<dialog
+  #dialog
+  class="viewer"
+  aria-labelledby="viewer-title"
+  (close)="onClose()"
+  (click)="onDialogClick($event)"
+  (keydown)="onKeydown($event)"
+>
+  @if (project(); as current) {
+    <div class="viewer-panel">
+      <div class="viewer-bar">
+        <h2 id="viewer-title" class="viewer-title">{{ current.name }}</h2>
+        @if (count() > 1) {
+          <span class="viewer-count" aria-live="polite">{{ index() + 1 }} / {{ count() }}</span>
+        }
+        <button type="button" class="viewer-close" aria-label="Fermer la visionneuse" (click)="close()">
+          <app-icon name="close" />
+        </button>
+      </div>
+      <div class="viewer-stage" (pointerdown)="onPointerDown($event)" (pointerup)="onPointerUp($event)">
+        @for (shot of shots(); track shot.src) {
+          <figure class="viewer-figure">
+            <img [src]="shot.src" [width]="shot.width" [height]="shot.height" [alt]="shot.alt" />
+            <figcaption>{{ shot.alt }}</figcaption>
+          </figure>
+        }
+        @if (count() > 1) {
+          <button type="button" class="viewer-nav prev" aria-label="Capture précédente" (click)="step(-1)">
+            <app-icon name="chevronLeft" />
+          </button>
+          <button type="button" class="viewer-nav next" aria-label="Capture suivante" (click)="step(1)">
+            <app-icon name="chevronRight" />
+          </button>
+        }
+      </div>
+    </div>
+  }
+</dialog>

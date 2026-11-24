@@ -27,7 +27,9 @@ const TYPES = {
 };
 // Valeurs finales attendues des compteurs (voir src/app/data/profile.ts).
 const EXPECTED_STATS = ['Plus de 2 ans', '415 000+', '19 000+'];
-const SECTIONS = ['accueil', 'profil', 'experience', 'competences', 'formation', 'plus', 'contact'];
+const SECTIONS = ['accueil', 'profil', 'experience', 'projets', 'competences', 'formation', 'plus', 'contact'];
+const EXPECTED_PROJECTS = 5;
+const EXPECTED_FEATURED = 2;
 
 // Le site est servi sous le même chemin de base que le build (ex. « / » ou « /nom-du-depot/»).
 const BASE_PATH = (await readFile(join(ROOT, 'index.html'), 'utf8')).match(/<base href="([^"]*)"/)?.[1] ?? '/';
@@ -118,6 +120,76 @@ try {
 
   check('Ombre de l’en-tête après défilement', await page.$eval('.site-header', (element) => element.classList.contains('scrolled')));
 
+  // ---------- Projets ----------
+  const projects = await page.$$eval('.project-card', (cards) =>
+    cards.map((card) => ({
+      title: card.querySelector('h3')?.textContent?.trim() ?? '',
+      featured: card.classList.contains('featured'),
+      images: [...card.querySelectorAll('.project-shot img')].map((img) => img.complete && img.naturalWidth > 0),
+    })),
+  );
+  check(
+    'Projets : cartes et captures chargées',
+    projects.length === EXPECTED_PROJECTS &&
+      projects.filter((project) => project.featured).length === EXPECTED_FEATURED &&
+      projects.every((project) => project.images.length > 0 && project.images.every(Boolean)),
+    projects.map((project) => `${project.title} (${project.images.filter(Boolean).length}/${project.images.length})`).join(', '),
+  );
+
+  const gallery = page.locator('.project-card:has(.shot-switch)').first();
+  const galleryTitle = normalizeSpaces(await gallery.locator('h3').textContent());
+  await gallery.locator('.shot-switch button').nth(1).click();
+  await wait(page, 700);
+  const switched = await gallery.evaluate((card) => ({
+    active: [...card.querySelectorAll('.project-shot img')].findIndex((img) => img.classList.contains('active')),
+    pressed: card.querySelector('.shot-switch button:nth-child(2)')?.getAttribute('aria-pressed'),
+    opacity: getComputedStyle(card.querySelector('.project-shot img.active')).opacity,
+  }));
+  check(
+    'Projets : changement de capture',
+    switched.active === 1 && switched.pressed === 'true' && switched.opacity === '1',
+    `${galleryTitle} ${JSON.stringify(switched)}`,
+  );
+
+  await gallery.locator('.project-shot').click();
+  await page.waitForSelector('dialog.viewer[open] .viewer-figure img', { timeout: 5000 });
+  await wait(page, 600);
+  const readViewer = () =>
+    page.evaluate(() => {
+      const dialog = document.querySelector('dialog.viewer');
+      const img = dialog?.querySelector('.viewer-figure img');
+      return {
+        open: Boolean(dialog?.open),
+        title: dialog?.querySelector('.viewer-title')?.textContent?.trim() ?? '',
+        count: (dialog?.querySelector('.viewer-count')?.textContent ?? '').replace(/\s+/g, ' ').trim(),
+        loaded: Boolean(img && img.complete && img.naturalWidth > 0),
+        focus: document.activeElement?.className ?? '',
+        locked: getComputedStyle(document.documentElement).overflow === 'hidden',
+      };
+    });
+  const viewer = await readViewer();
+  check(
+    'Visionneuse : ouverture sur la capture affichée',
+    viewer.open && viewer.title === galleryTitle && viewer.count === '2 / 2' && viewer.loaded && viewer.focus.includes('viewer-close') && viewer.locked,
+    JSON.stringify(viewer),
+  );
+  await page.keyboard.press('ArrowRight');
+  await wait(page, 400);
+  const afterArrow = await readViewer();
+  check('Visionneuse : navigation au clavier', afterArrow.count === '1 / 2' && afterArrow.loaded, afterArrow.count);
+  await page.keyboard.press('Escape');
+  await wait(page, 400);
+  const afterClose = await page.evaluate(() => ({
+    open: Boolean(document.querySelector('dialog.viewer')?.open),
+    focusOnCard: document.activeElement?.classList.contains('project-shot') ?? false,
+    locked: getComputedStyle(document.documentElement).overflow === 'hidden',
+  }));
+  check(
+    'Visionneuse : fermeture avec Échap et retour du focus',
+    !afterClose.open && afterClose.focusOnCard && !afterClose.locked,
+    JSON.stringify(afterClose),
+  );
+
   await page.evaluate(() => document.getElementById('competences')?.scrollIntoView({ behavior: 'instant', block: 'start' }));
   await wait(page, 500);
   const active = await page.$$eval('.menu a.active', (elements) => elements.map((element) => element.textContent.trim()));
@@ -156,6 +228,29 @@ try {
   watch(darkPage, 'système sombre');
   await darkPage.goto(BASE, { waitUntil: 'networkidle' });
   check('Préférence sombre du système suivie', (await darkPage.evaluate(() => document.documentElement.dataset.theme)) === 'dark');
+
+  // ---------- En-tête aux largeurs intermédiaires ----------
+  const tabletContext = await browser.newContext({ viewport: { width: 1024, height: 800 } });
+  const tablet = await tabletContext.newPage();
+  watch(tablet, 'tablette');
+  await tablet.goto(BASE, { waitUntil: 'networkidle' });
+  const readHeader = () =>
+    tablet.evaluate(() => ({
+      brandHeight: Math.round(document.querySelector('.brand')?.getBoundingClientRect().height ?? 0),
+      inlineMenu: getComputedStyle(document.getElementById('menu')).position !== 'absolute',
+      burger: getComputedStyle(document.querySelector('.menu-toggle')).display !== 'none',
+      overflow: document.documentElement.scrollWidth - window.innerWidth,
+    }));
+  const wide = await readHeader();
+  await tablet.setViewportSize({ width: 900, height: 800 });
+  await wait(tablet, 300);
+  const narrow = await readHeader();
+  check(
+    'En-tête sur une ligne (1024 px : menu complet, 900 px : menu replié)',
+    wide.inlineMenu && !wide.burger && wide.brandHeight <= 40 && wide.overflow <= 0 &&
+      !narrow.inlineMenu && narrow.burger && narrow.brandHeight <= 40 && narrow.overflow <= 0,
+    `${JSON.stringify(wide)} / ${JSON.stringify(narrow)}`,
+  );
 
   // ---------- Mobile ----------
   const mobileContext = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });

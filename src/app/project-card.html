@@ -1,0 +1,54 @@
+<div class="project-media">
+  <button
+    class="project-shot"
+    type="button"
+    [attr.aria-label]="'Agrandir la capture : ' + shot().alt"
+    (click)="zoom.emit(active())"
+  >
+    @for (image of project().images; track image.src; let i = $index) {
+      <img
+        [src]="image.src"
+        [attr.srcset]="srcset(image)"
+        [attr.sizes]="sizes()"
+        [width]="image.width"
+        [height]="image.height"
+        alt=""
+        loading="lazy"
+        decoding="async"
+        [class.active]="i === active()"
+      />
+    }
+    <span class="zoom-hint" aria-hidden="true">
+      <app-icon name="expand" />
+      Agrandir
+    </span>
+  </button>
+  @if (project().images.length > 1) {
+    <div class="shot-switch" role="group" [attr.aria-label]="'Captures d’écran : ' + project().name">
+      @for (image of project().images; track image.src; let i = $index) {
+        <button
+          type="button"
+          [class.active]="i === active()"
+          [attr.aria-pressed]="i === active()"
+          [attr.aria-label]="'Capture ' + (i + 1) + ' sur ' + project().images.length"
+          (click)="active.set(i)"
+        ></button>
+      }
+    </div>
+  }
+</div>
+<div class="project-body">
+  <p class="project-meta">
+    <span class="project-kind">{{ project().kind }}</span>
+    @if (project().context) {
+      <span>{{ project().context }}</span>
+    }
+  </p>
+  <h3>{{ project().name }}</h3>
+  <p class="project-desc">{{ project().description }}</p>
+  <ul class="chips" aria-label="Technologies utilisées">
+    @for (tech of project().technologies; track tech) {
+      <li>{{ tech }}</li>
+    }
+  </ul>
+</div>

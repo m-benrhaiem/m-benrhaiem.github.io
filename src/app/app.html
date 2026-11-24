@@ -159,7 +159,25 @@
     </div>
   </section>
 
-  <section id="competences" class="section" aria-labelledby="competences-title">
+  <section id="projets" class="section" aria-labelledby="projets-title">
+    <div class="container">
+      <h2 id="projets-title" class="section-title" appReveal>Projets</h2>
+      <p class="section-intro" [appReveal]="80">Une sélection de projets professionnels, académiques et personnels.</p>
+      <div class="project-grid">
+        @for (project of data.projects; track project.name; let i = $index) {
+          <app-project-card
+            class="card project-card lift"
+            [class.featured]="project.featured"
+            [project]="project"
+            [appReveal]="(project.featured ? i : i - featuredCount) * 90"
+            (zoom)="viewer.open(project, $event)"
+          />
+        }
+      </div>
+    </div>
+  </section>
+
+  <section id="competences" class="section alt" aria-labelledby="competences-title">
     <div class="container">
       <h2 id="competences-title" class="section-title" appReveal>Compétences techniques</h2>
       <div class="skills-grid">
@@ -180,7 +198,7 @@
     </div>
   </section>
 
-  <section id="formation" class="section alt" aria-labelledby="formation-title">
+  <section id="formation" class="section" aria-labelledby="formation-title">
     <div class="container">
       <h2 id="formation-title" class="section-title" appReveal>Formation</h2>
       <div class="edu-grid">
@@ -199,7 +217,7 @@
     </div>
   </section>
 
-  <section id="plus" class="section" aria-labelledby="plus-title">
+  <section id="plus" class="section alt" aria-labelledby="plus-title">
     <div class="container">
       <h2 id="plus-title" class="section-title" appReveal>Informations complémentaires</h2>
       <div class="extras-grid">
@@ -253,7 +271,7 @@
     </div>
   </section>
 
-  <section id="contact" class="section alt" aria-labelledby="contact-title">
+  <section id="contact" class="section" aria-labelledby="contact-title">
     <div class="container">
       <div class="contact-card" appReveal>
         <div class="contact-text">
@@ -292,3 +310,5 @@
     </a>
   </div>
 </footer>
+
+<app-project-viewer #viewer />

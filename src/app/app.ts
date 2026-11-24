@@ -3,6 +3,8 @@ import { NgOptimizedImage } from '@angular/common';
 import { PROFILE } from './data/profile';
 import { CountUpDirective } from './count-up.directive';
 import { IconComponent } from './icon';
+import { ProjectCardComponent } from './project-card';
+import { ProjectViewerComponent } from './project-viewer';
 import { RevealDirective } from './reveal.directive';
 import { ThemeService } from './theme.service';
 
@@ -13,7 +15,7 @@ interface NavItem {
 
 @Component({
   selector: 'app-root',
-  imports: [NgOptimizedImage, IconComponent, RevealDirective, CountUpDirective],
+  imports: [NgOptimizedImage, IconComponent, RevealDirective, CountUpDirective, ProjectCardComponent, ProjectViewerComponent],
   templateUrl: './app.html',
   styleUrl: './app.css',
   host: { '(document:keydown.escape)': 'closeMenu()' },
@@ -30,9 +32,13 @@ export class App {
   private readonly themeService = inject(ThemeService);
   protected readonly isDark = computed(() => this.themeService.theme() === 'dark');
 
+  /** Nombre de projets mis en avant (première rangée), pour décaler l'apparition des cartes rangée par rangée. */
+  protected readonly featuredCount = PROFILE.projects.filter((project) => project.featured).length;
+
   protected readonly nav: NavItem[] = [
     { id: 'profil', label: 'Profil' },
     { id: 'experience', label: 'Expérience' },
+    { id: 'projets', label: 'Projets' },
     { id: 'competences', label: 'Compétences' },
     { id: 'formation', label: 'Formation' },
     { id: 'contact', label: 'Contact' },

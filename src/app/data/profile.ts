@@ -38,6 +38,29 @@ export interface Experience {
   technologies: string[];
 }
 
+/** Capture d'écran d'un projet : grande image (aussi affichée dans la visionneuse) et variante 640 px. */
+export interface Screenshot {
+  src: string;
+  small: string;
+  width: number;
+  height: number;
+  alt: string;
+}
+
+/** Projet présenté dans la section « Projets ». */
+export interface PortfolioProject {
+  name: string;
+  /** Nature du projet : professionnel, stage, académique ou personnel. */
+  kind: string;
+  /** Entreprise, client ou période, affichés à côté de la nature du projet. */
+  context?: string;
+  description: string;
+  technologies: string[];
+  images: Screenshot[];
+  /** Carte plus large, en tête de la section. */
+  featured?: boolean;
+}
+
 export interface SkillGroup {
   category: string;
   icon: IconName;
@@ -73,6 +96,7 @@ export interface Profile {
   summary: string;
   stats: Stat[];
   experiences: Experience[];
+  projects: PortfolioProject[];
   skills: SkillGroup[];
   education: Education[];
   courses: Course[];
@@ -159,6 +183,115 @@ export const PROFILE: Profile = {
         },
       ],
       technologies: ['Java', 'Spring Boot', 'Spring Security', 'PostgreSQL', 'React', 'Redux', 'Firebase'],
+    },
+  ],
+  projects: [
+    {
+      name: 'MyBIAT Retail',
+      kind: 'Projet professionnel',
+      context: 'Value Digital Services · BIAT',
+      description:
+        'Plateforme de banque digitale de la BIAT destinée aux particuliers, utilisée par plus de 415\u00a0000 clients. Développement de microservices Spring Boot et de fonctionnalités Angular au sein d’une équipe Scrum.',
+      technologies: ['Java', 'Spring Boot', 'Angular', 'TypeScript', 'Backbase'],
+      images: [
+        {
+          src: 'images/projects/mybiat-retail-1280.webp',
+          small: 'images/projects/mybiat-retail-640.webp',
+          width: 1280,
+          height: 659,
+          alt: 'Page de connexion de MyBIAT Retail, la banque digitale de la BIAT pour les particuliers',
+        },
+      ],
+      featured: true,
+    },
+    {
+      name: 'MyBIAT Corporate',
+      kind: 'Projet professionnel',
+      context: 'Value Digital Services · BIAT',
+      description:
+        'Plateforme de banque digitale de la BIAT destinée aux entreprises, utilisée par plus de 19\u00a0000 entreprises clientes. Développement full stack\u00a0: microservices Spring Boot et fonctionnalités Angular.',
+      technologies: ['Java', 'Spring Boot', 'Angular', 'TypeScript', 'Backbase'],
+      images: [
+        {
+          src: 'images/projects/mybiat-corporate-1280.webp',
+          small: 'images/projects/mybiat-corporate-640.webp',
+          width: 1280,
+          height: 659,
+          alt: 'Page de connexion de MyBIAT Corporate, la banque digitale de la BIAT pour les entreprises',
+        },
+      ],
+      featured: true,
+    },
+    {
+      name: 'Tunisia Fleet Management',
+      kind: 'Stage',
+      context: 'juin – août 2023',
+      description:
+        'Application web de gestion de flotte\u00a0: développement de bout en bout des modules de suivi des véhicules et de maintenance, des API REST sécurisées jusqu’à l’interface React / Redux.',
+      technologies: ['Java', 'Spring Boot', 'Spring Security', 'React', 'Redux', 'PostgreSQL', 'Firebase'],
+      images: [
+        {
+          src: 'images/projects/tfm-accueil-1024.webp',
+          small: 'images/projects/tfm-accueil-640.webp',
+          width: 1024,
+          height: 516,
+          alt: 'Page d’accueil du site Geofleet de gestion de flotte',
+        },
+        {
+          src: 'images/projects/tfm-connexion-1024.webp',
+          small: 'images/projects/tfm-connexion-640.webp',
+          width: 1024,
+          height: 641,
+          alt: 'Page de connexion de l’application de gestion de flotte',
+        },
+      ],
+    },
+    {
+      name: 'AggrolabFX',
+      kind: 'Projet académique',
+      context: '2023',
+      description:
+        'Plateforme d’agrégation de données du marché Forex, avec un tableau de bord de simulation d’options (put/call) et un modèle de régression linéaire. Front-end hébergé sur Firebase, API REST Django déployée sur Microsoft Azure.',
+      technologies: ['React', 'Redux', 'Material UI', 'Django', 'MySQL', 'Microsoft Azure', 'Firebase'],
+      images: [
+        {
+          src: 'images/projects/aggrolabfx-accueil-1024.webp',
+          small: 'images/projects/aggrolabfx-accueil-640.webp',
+          width: 1024,
+          height: 520,
+          alt: 'Page d’accueil d’AggrolabFX en mode sombre, avec le formulaire de connexion',
+        },
+        {
+          src: 'images/projects/aggrolabfx-marches-1024.webp',
+          small: 'images/projects/aggrolabfx-marches-640.webp',
+          width: 1024,
+          height: 566,
+          alt: 'Accès aux marchés et au tableau de bord d’AggrolabFX',
+        },
+      ],
+    },
+    {
+      name: 'Plateforme d’échecs en ligne',
+      kind: 'Projet personnel',
+      description:
+        'Site d’échecs pour jouer en ligne avec un ami\u00a0: plateau interactif avec déplacement des pièces par glisser-déposer (react-dnd), historique des coups et Firebase comme backend (BaaS).',
+      technologies: ['React', 'JavaScript', 'react-dnd', 'Firebase', 'Bootstrap'],
+      images: [
+        {
+          src: 'images/projects/echecs-accueil-1024.webp',
+          small: 'images/projects/echecs-accueil-640.webp',
+          width: 1024,
+          height: 499,
+          alt: 'Page d’accueil de la plateforme d’échecs, avec le bouton pour jouer en ligne avec un ami',
+        },
+        {
+          src: 'images/projects/echecs-partie-1024.webp',
+          small: 'images/projects/echecs-partie-640.webp',
+          width: 1024,
+          height: 499,
+          alt: 'Partie en cours, avec l’historique des coups à côté de l’échiquier',
+        },
+      ],
     },
   ],
   skills: [

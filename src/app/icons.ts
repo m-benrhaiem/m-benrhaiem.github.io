@@ -25,6 +25,10 @@ export const ICONS = {
   sun: 'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z M12 2.5v2 M12 19.5v2 M4.6 4.6 6 6 M18 18l1.4 1.4 M2.5 12h2 M19.5 12h2 M4.6 19.4 6 18 M18 6l1.4-1.4',
   moon: 'M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z',
   star: 'M12 3.5l2.6 5.3 5.9.85-4.25 4.15 1 5.85L12 16.9l-5.25 2.75 1-5.85L3.5 9.65l5.9-.85L12 3.5z',
+  expand: 'M14.5 3.5h6v6 M20.5 3.5 14 10 M9.5 20.5h-6v-6 M3.5 20.5 10 14',
+  close: 'M6 6l12 12 M18 6 6 18',
+  chevronLeft: 'M14.5 5.5 8 12l6.5 6.5',
+  chevronRight: 'M9.5 5.5 16 12l-6.5 6.5',
 } as const;
 
 export type IconName = keyof typeof ICONS;
