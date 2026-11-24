@@ -113,7 +113,7 @@ export const PROFILE: Profile = {
   linkedin: 'https://www.linkedin.com/in/mohamed-ben-rhaiem',
   linkedinLabel: 'linkedin.com/in/mohamed-ben-rhaiem',
   /** Le paramètre ?v= change à chaque nouveau PDF : les navigateurs ne servent jamais une ancienne version en cache. */
-  cvFile: 'CV_Mohamed_Ben_Rhaiem.pdf?v=2653787e',
+  cvFile: 'CV_Mohamed_Ben_Rhaiem.pdf?v=a79a7a8b',
   photo: 'images/mohamed-ben-rhaiem.webp',
   tagline:
     'Je développe des microservices Spring Boot, des applications Angular et des intégrations avec le core banking pour la banque digitale.',
@@ -336,7 +336,7 @@ export const PROFILE: Profile = {
     },
     {
       degree: 'Cycle préparatoire Mathématiques – Physique',
-      school: 'IPEIN Nabeul',
+      school: 'Institut Préparatoire aux Études d’ingénieurs de Nabeul (IPEIN)',
       university: 'Université de Carthage',
       location: 'Nabeul, Tunisie',
       period: '2019 – 2021',
