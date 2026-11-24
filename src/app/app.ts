@@ -1,9 +1,10 @@
-import { Component, DestroyRef, afterNextRender, inject, signal } from '@angular/core';
+import { Component, DestroyRef, afterNextRender, computed, inject, signal } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { PROFILE } from './data/profile';
 import { CountUpDirective } from './count-up.directive';
 import { IconComponent } from './icon';
 import { RevealDirective } from './reveal.directive';
+import { ThemeService } from './theme.service';
 
 interface NavItem {
   id: string;
@@ -25,6 +26,9 @@ export class App {
   protected readonly scrolled = signal(false);
   /** Section visible au centre de l'écran : lien actif dans la navigation. */
   protected readonly activeSection = signal('');
+
+  private readonly themeService = inject(ThemeService);
+  protected readonly isDark = computed(() => this.themeService.theme() === 'dark');
 
   protected readonly nav: NavItem[] = [
     { id: 'profil', label: 'Profil' },
@@ -65,6 +69,12 @@ export class App {
         headerSpy.disconnect();
       });
     });
+  }
+
+  protected toggleTheme(event: Event): void {
+    const button = event.currentTarget as HTMLElement | null;
+    const rect = button?.getBoundingClientRect();
+    this.themeService.toggle(rect ? { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 } : undefined);
   }
 
   protected toggleMenu(): void {

@@ -93,7 +93,7 @@ export const PROFILE: Profile = {
   github: 'https://github.com/m-benrhaiem',
   sourceCode: 'https://github.com/m-benrhaiem/m-benrhaiem.github.io',
   /** Le paramètre ?v= change à chaque nouveau PDF : les navigateurs ne servent jamais une ancienne version en cache. */
-  cvFile: 'CV_Mohamed_Ben_Rhaiem.pdf?v=14edc935',
+  cvFile: 'CV_Mohamed_Ben_Rhaiem.pdf?v=2653787e',
   photo: 'images/mohamed-ben-rhaiem.webp',
   tagline:
     'Je développe des microservices Spring Boot, des applications Angular et des intégrations avec le core banking pour la banque digitale.',

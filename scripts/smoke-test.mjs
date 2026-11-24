@@ -134,6 +134,29 @@ try {
   const cv = await page.request.get(cvHref);
   check('CV PDF accessible', cv.ok() && (cv.headers()['content-type'] ?? '').includes('pdf'), `${cv.status()} ${new URL(cvHref).pathname}`);
 
+  // ---------- Thème clair / sombre ----------
+  const themeBefore = await page.evaluate(() => document.documentElement.dataset.theme);
+  await page.click('.theme-toggle');
+  await wait(page, 900);
+  const themeAfter = await page.evaluate(() => ({
+    theme: document.documentElement.dataset.theme,
+    background: getComputedStyle(document.body).backgroundColor,
+  }));
+  check(
+    'Bascule clair / sombre',
+    themeBefore === 'light' && themeAfter.theme === 'dark' && themeAfter.background !== 'rgb(255, 255, 255)',
+    `${themeBefore} → ${themeAfter.theme} (${themeAfter.background})`,
+  );
+  await page.reload({ waitUntil: 'networkidle' });
+  const themeKept = await page.evaluate(() => document.documentElement.dataset.theme);
+  check('Thème mémorisé après rechargement', themeKept === 'dark', themeKept);
+
+  const systemDark = await browser.newContext({ viewport: { width: 1280, height: 800 }, colorScheme: 'dark' });
+  const darkPage = await systemDark.newPage();
+  watch(darkPage, 'système sombre');
+  await darkPage.goto(BASE, { waitUntil: 'networkidle' });
+  check('Préférence sombre du système suivie', (await darkPage.evaluate(() => document.documentElement.dataset.theme)) === 'dark');
+
   // ---------- Mobile ----------
   const mobileContext = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
   const mobile = await mobileContext.newPage();

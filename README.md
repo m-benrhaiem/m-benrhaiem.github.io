@@ -6,7 +6,9 @@ Application Angular 22 sans zone.js (zoneless), avec composants standalone, sign
 - Animations : entrée du hero en cascade, apparition des sections au défilement (directive `appReveal`),
   compteurs animés (directive `appCountUp`), barre de progression de lecture, navigation qui suit la section affichée.
   Toutes respectent la préférence système « réduire les animations ».
-- Photo optimisée (`NgOptimizedImage`, WebP), mode sombre automatique, site responsive.
+- Photo optimisée (`NgOptimizedImage`, WebP), site responsive.
+- Mode clair / sombre : bouton dans l'en-tête (transition circulaire via l'API View Transitions), choix mémorisé,
+  préférence du système par défaut, appliqué avant le premier affichage (pas de flash).
 - SEO : balises Open Graph / Twitter avec image de partage, données structurées JSON-LD (`Person`).
 - Test de fumée dans la CI : le build est chargé dans Chrome avant chaque déploiement.
 
@@ -65,6 +67,7 @@ src/
     data/profile.ts     contenu du portfolio
     reveal.directive.ts apparition au défilement
     count-up.directive.ts compteurs animés
+    theme.service.ts    thème clair / sombre
     icon.ts, icons.ts   icônes SVG
 public/
   CV_Mohamed_Ben_Rhaiem.pdf

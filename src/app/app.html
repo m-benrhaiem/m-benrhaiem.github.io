@@ -9,6 +9,19 @@
       <span class="brand-name">{{ data.name }}</span>
     </a>
     <button
+      class="theme-toggle"
+      type="button"
+      [attr.aria-label]="isDark() ? 'Activer le mode clair' : 'Activer le mode sombre'"
+      [attr.title]="isDark() ? 'Mode clair' : 'Mode sombre'"
+      (click)="toggleTheme($event)"
+    >
+      @if (isDark()) {
+        <app-icon name="sun" />
+      } @else {
+        <app-icon name="moon" />
+      }
+    </button>
+    <button
       class="menu-toggle"
       type="button"
       aria-controls="menu"

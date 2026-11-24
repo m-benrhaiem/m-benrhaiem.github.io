@@ -27,6 +27,19 @@
   <meta name="twitter:description" content="Microservices Spring Boot, applications Angular et intégration core banking, principalement dans le secteur bancaire.">
   <meta name="twitter:image" content="https://m-benrhaiem.github.io/images/og-image.jpg">
 
+  <script>
+    // Thème appliqué avant le premier affichage : choix mémorisé, sinon préférence du système.
+    (function () {
+      var theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      try {
+        var saved = localStorage.getItem('theme');
+        if (saved === 'light' || saved === 'dark') theme = saved;
+      } catch (e) {}
+      document.documentElement.setAttribute('data-theme', theme);
+      if (theme === 'dark') document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0e141b');
+    })();
+  </script>
+
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preload" as="image" href="images/mohamed-ben-rhaiem.webp" type="image/webp" fetchpriority="high">
 

@@ -23,27 +23,27 @@
   --ease-out: cubic-bezier(0.2, 0.65, 0.3, 1);
   --max: 1120px;
   --header: 68px;
-  color-scheme: light dark;
+  color-scheme: light;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --accent: #8db8e0;
-    --accent-strong: #b5d2ee;
-    --accent-2: #5d9fd6;
-    --accent-soft: #1a2a3a;
-    --on-accent: #0e141b;
-    --ink: #e6ecf2;
-    --muted: #a4b0bc;
-    --line: #283543;
-    --bg: #0e141b;
-    --bg-alt: #121a23;
-    --card: #15202b;
-    --grid: rgba(141, 184, 224, 0.06);
-    --shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 8px 20px rgba(0, 0, 0, 0.25);
-    --shadow-hover: 0 2px 4px rgba(0, 0, 0, 0.4), 0 18px 40px -12px rgba(0, 0, 0, 0.55);
-    --shadow-lg: 0 28px 60px -20px rgba(0, 0, 0, 0.65);
-  }
+/* Mode sombre : choisi avec le bouton de l'en-tête, sinon selon la préférence du système. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --accent: #8db8e0;
+  --accent-strong: #b5d2ee;
+  --accent-2: #5d9fd6;
+  --accent-soft: #1a2a3a;
+  --on-accent: #0e141b;
+  --ink: #e6ecf2;
+  --muted: #a4b0bc;
+  --line: #283543;
+  --bg: #0e141b;
+  --bg-alt: #121a23;
+  --card: #15202b;
+  --grid: rgba(141, 184, 224, 0.06);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 8px 20px rgba(0, 0, 0, 0.25);
+  --shadow-hover: 0 2px 4px rgba(0, 0, 0, 0.4), 0 18px 40px -12px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 28px 60px -20px rgba(0, 0, 0, 0.65);
 }
 
 *,
@@ -196,8 +196,12 @@ a:hover {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 10px;
   height: var(--header);
+}
+
+.brand {
+  margin-right: auto;
 }
 
 .brand {
@@ -231,9 +235,10 @@ a:hover {
 }
 
 .menu {
+  order: 1;
   display: flex;
   gap: 30px;
-  margin: 0;
+  margin: 0 14px 0 0;
   padding: 0;
   list-style: none;
 }
@@ -275,6 +280,60 @@ a:hover {
 
 .menu-toggle {
   display: none;
+  order: 3;
+}
+
+/* ---------- Bouton clair / sombre ---------- */
+
+.theme-toggle {
+  order: 2;
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--card);
+  color: var(--ink);
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.3s var(--ease-out);
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: rotate(-15deg);
+}
+
+.theme-toggle .icon {
+  animation: theme-icon 0.5s var(--ease-out);
+}
+
+.theme-toggle .icon svg {
+  width: 19px;
+  height: 19px;
+}
+
+@keyframes theme-icon {
+  from {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Changement de thème : la nouvelle vue s'ouvre en cercle depuis le bouton (ThemeService). */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }
 
 /* ---------- Boutons ---------- */
@@ -1102,11 +1161,9 @@ a:hover {
   color: #ffffff;
 }
 
-@media (prefers-color-scheme: dark) {
-  .contact-card {
-    border: 1px solid var(--line);
-    background: linear-gradient(135deg, #13263a 0%, #18344f 55%, #1f4a72 100%);
-  }
+:root[data-theme="dark"] .contact-card {
+  border: 1px solid var(--line);
+  background: linear-gradient(135deg, #13263a 0%, #18344f 55%, #1f4a72 100%);
 }
 
 /* ---------- Pied de page ---------- */
@@ -1217,6 +1274,7 @@ a:hover {
     top: var(--header);
     left: -20px;
     right: -20px;
+    margin: 0;
     flex-direction: column;
     gap: 0;
     padding: 6px 20px 16px;
