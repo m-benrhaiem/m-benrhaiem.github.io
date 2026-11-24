@@ -26,7 +26,9 @@ Après le premier `npm install`, versionner le fichier `package-lock.json` : le 
 ## Mettre le contenu à jour
 
 Tout le texte du site (profil, expériences, compétences, formation…) est dans un seul fichier :
-`src/app/data/profile.ts`. Le CV téléchargeable est `public/CV_Mohamed_Ben_Rhaiem.pdf`.
+`src/app/data/profile.ts`. Le CV téléchargeable est `public/CV_Mohamed_Ben_Rhaiem.pdf` : après l'avoir remplacé,
+changez la valeur `?v=` de `cvFile` dans `profile.ts` (par exemple avec les 8 premiers caractères de `sha256sum`)
+pour que les navigateurs ne gardent pas l'ancienne version en cache.
 
 ## Déployer sur GitHub Pages
 

@@ -92,7 +92,8 @@ export const PROFILE: Profile = {
   linkedinLabel: 'linkedin.com/in/mohamed-ben-rhaiem',
   github: 'https://github.com/m-benrhaiem',
   sourceCode: 'https://github.com/m-benrhaiem/m-benrhaiem.github.io',
-  cvFile: 'CV_Mohamed_Ben_Rhaiem.pdf',
+  /** Le paramètre ?v= change à chaque nouveau PDF : les navigateurs ne servent jamais une ancienne version en cache. */
+  cvFile: 'CV_Mohamed_Ben_Rhaiem.pdf?v=14edc935',
   photo: 'images/mohamed-ben-rhaiem.webp',
   tagline:
     'Je développe des microservices Spring Boot, des applications Angular et des intégrations avec le core banking pour la banque digitale.',
