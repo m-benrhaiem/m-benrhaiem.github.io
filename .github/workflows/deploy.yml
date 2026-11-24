@@ -40,7 +40,7 @@ jobs:
       # personnalisé, "/nom-du-depot" pour un autre dépôt.
       - name: Configurer GitHub Pages
         id: pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
 
       - name: Compiler le site Angular
         env:
@@ -48,7 +48,7 @@ jobs:
         run: npx ng build --configuration production --base-href "${BASE_PATH}/"
 
       - name: Préparer l'artefact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v5
         with:
           path: dist/portfolio/browser
 
@@ -61,4 +61,4 @@ jobs:
     steps:
       - name: Déployer
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
