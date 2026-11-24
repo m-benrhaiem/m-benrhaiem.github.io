@@ -1,0 +1,206 @@
+<a class="skip-link" href="#profil">Aller au contenu</a>
+
+<header class="site-header" [class.menu-open]="menuOpen()">
+  <nav class="nav container" aria-label="Navigation principale">
+    <a class="brand" href="#top" (click)="closeMenu()">{{ data.name }}</a>
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-controls="menu"
+      [attr.aria-expanded]="menuOpen()"
+      (click)="toggleMenu()"
+    >
+      <span class="sr-only">Ouvrir le menu</span>
+      <span class="bar" aria-hidden="true"></span>
+      <span class="bar" aria-hidden="true"></span>
+      <span class="bar" aria-hidden="true"></span>
+    </button>
+    <ul id="menu" class="menu">
+      @for (item of nav; track item.id) {
+        <li><a [href]="'#' + item.id" (click)="closeMenu()">{{ item.label }}</a></li>
+      }
+    </ul>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container">
+      <p class="eyebrow">{{ data.location }}</p>
+      <h1 id="hero-title">{{ data.name }}</h1>
+      <p class="hero-role">{{ data.title }} <span class="stack">· {{ data.stack }}</span></p>
+      <p class="lead">{{ data.tagline }}</p>
+      <div class="actions">
+        <a class="btn btn-primary" [href]="'mailto:' + data.email">Me contacter</a>
+        <a class="btn" [href]="data.cvFile" download>Télécharger le CV</a>
+        <a class="btn btn-ghost" [href]="data.linkedin" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+      <ul class="stats">
+        @for (stat of data.stats; track stat.label) {
+          <li>
+            <strong>{{ stat.value }}</strong>
+            <span>{{ stat.label }}</span>
+          </li>
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section id="profil" class="section" aria-labelledby="profil-title">
+    <div class="container narrow">
+      <h2 id="profil-title" class="section-title">Profil</h2>
+      <p class="summary">{{ data.summary }}</p>
+    </div>
+  </section>
+
+  <section id="experience" class="section alt" aria-labelledby="experience-title">
+    <div class="container">
+      <h2 id="experience-title" class="section-title">Expérience professionnelle</h2>
+      <ol class="timeline">
+        @for (exp of data.experiences; track exp.company) {
+          <li class="card exp">
+            <div class="exp-head">
+              <div>
+                <h3>{{ exp.company }}</h3>
+                @if (exp.client) {
+                  <p class="client">Client&nbsp;: {{ exp.client }}</p>
+                }
+              </div>
+              <p class="place">{{ exp.location }}</p>
+            </div>
+            <ul class="roles">
+              @for (role of exp.roles; track role.title) {
+                <li>
+                  <span class="role">{{ role.title }}</span>
+                  <span class="period">{{ role.period }}</span>
+                </li>
+              }
+            </ul>
+            <p class="context">{{ exp.context }}</p>
+            @if (exp.projects.length > 0) {
+              <ul class="projects">
+                @for (project of exp.projects; track project.name) {
+                  <li>
+                    <strong>{{ project.name }}</strong>
+                    <span>{{ project.audience }}</span>
+                  </li>
+                }
+              </ul>
+            }
+            <ul class="highlights">
+              @for (item of exp.highlights; track item.title) {
+                <li>
+                  <span class="tag">{{ item.title }}</span>
+                  <p>{{ item.text }}</p>
+                </li>
+              }
+            </ul>
+            <ul class="chips" aria-label="Technologies utilisées">
+              @for (tech of exp.technologies; track tech) {
+                <li>{{ tech }}</li>
+              }
+            </ul>
+          </li>
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section id="competences" class="section" aria-labelledby="competences-title">
+    <div class="container">
+      <h2 id="competences-title" class="section-title">Compétences techniques</h2>
+      <div class="skills-grid">
+        @for (group of data.skills; track group.category) {
+          <div class="card skill">
+            <h3>{{ group.category }}</h3>
+            <ul class="chips">
+              @for (skill of group.items; track skill) {
+                <li>{{ skill }}</li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section id="formation" class="section alt" aria-labelledby="formation-title">
+    <div class="container">
+      <h2 id="formation-title" class="section-title">Formation</h2>
+      <div class="edu-grid">
+        @for (edu of data.education; track edu.school) {
+          <article class="card edu">
+            <p class="period">{{ edu.period }}</p>
+            <h3>{{ edu.degree }}</h3>
+            <p class="school">{{ edu.school }}</p>
+            <p class="meta">{{ edu.university }} · {{ edu.location }}</p>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section id="plus" class="section" aria-labelledby="plus-title">
+    <div class="container">
+      <h2 id="plus-title" class="section-title">Informations complémentaires</h2>
+      <div class="extras-grid">
+        <div class="card extra">
+          <h3>Autoformation</h3>
+          <ul class="plain">
+            @for (course of data.courses; track course.title) {
+              <li>
+                <span>{{ course.title }}</span>
+                <span class="meta">{{ course.provider }} · {{ course.year }}</span>
+              </li>
+            }
+          </ul>
+        </div>
+        <div class="card extra">
+          <h3>Langues</h3>
+          <ul class="plain">
+            @for (language of data.languages; track language) {
+              <li>{{ language }}</li>
+            }
+          </ul>
+        </div>
+        <div class="card extra">
+          <h3>Centres d’intérêt</h3>
+          <ul class="plain">
+            @for (interest of data.interests; track interest) {
+              <li>{{ interest }}</li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section alt contact" aria-labelledby="contact-title">
+    <div class="container narrow">
+      <h2 id="contact-title" class="section-title">Contact</h2>
+      <p class="summary">Vous pouvez me joindre par e-mail ou sur LinkedIn.</p>
+      <ul class="contact-list">
+        <li>
+          <span class="label">E-mail</span>
+          <a [href]="'mailto:' + data.email">{{ data.email }}</a>
+        </li>
+        <li>
+          <span class="label">LinkedIn</span>
+          <a [href]="data.linkedin" target="_blank" rel="noopener">{{ data.linkedinLabel }}</a>
+        </li>
+        <li>
+          <span class="label">Localisation</span>
+          <span>{{ data.location }}</span>
+        </li>
+      </ul>
+      <a class="btn btn-primary" [href]="data.cvFile" download>Télécharger le CV (PDF)</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <span>&copy; {{ year }} {{ data.name }}</span>
+    <span>Site développé avec Angular · <a [href]="data.github" target="_blank" rel="noopener">GitHub</a></span>
+  </div>
+</footer>

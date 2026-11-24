@@ -1,0 +1,4 @@
+/* Les styles du site sont dans src/styles.css (feuille globale). */
+:host {
+  display: block;
+}
