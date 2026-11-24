@@ -3,9 +3,13 @@
  * Pour mettre le site à jour, il suffit de modifier ce fichier.
  */
 
+import type { IconName } from '../icons';
+
 export interface Stat {
   value: string;
   label: string;
+  /** Valeur numérique pour le compteur animé (si la statistique est un nombre). */
+  count?: number;
 }
 
 export interface Role {
@@ -36,6 +40,7 @@ export interface Experience {
 
 export interface SkillGroup {
   category: string;
+  icon: IconName;
   items: string[];
 }
 
@@ -51,6 +56,7 @@ export interface Course {
   title: string;
   provider: string;
   year: string;
+  certificateUrl: string;
 }
 
 export interface Profile {
@@ -62,7 +68,9 @@ export interface Profile {
   linkedin: string;
   linkedinLabel: string;
   github: string;
+  sourceCode: string;
   cvFile: string;
+  photo: string;
   tagline: string;
   summary: string;
   stats: Stat[];
@@ -83,15 +91,17 @@ export const PROFILE: Profile = {
   linkedin: 'https://www.linkedin.com/in/mohamed-ben-rhaiem',
   linkedinLabel: 'linkedin.com/in/mohamed-ben-rhaiem',
   github: 'https://github.com/m-benrhaiem',
+  sourceCode: 'https://github.com/m-benrhaiem/m-benrhaiem.github.io',
   cvFile: 'CV_Mohamed_Ben_Rhaiem.pdf',
+  photo: 'images/mohamed-ben-rhaiem.webp',
   tagline:
     'Je développe des microservices Spring Boot, des applications Angular et des intégrations avec le core banking pour la banque digitale.',
   summary:
     'Ingénieur en informatique diplômé de l’ENSI, développeur Full Stack Java / Spring Boot et Angular avec près de trois ans d’expérience, principalement dans le secteur bancaire. Spécialisé dans le développement de microservices et d’API REST, l’intégration avec le core banking Temenos T24 et la réalisation d’applications web. J’évolue au sein d’équipes Agile / Scrum et participe aux processus CI/CD, notamment avec Jenkins, Nexus et OpenShift.',
   stats: [
     { value: 'Près de 3 ans', label: 'd’expérience, principalement dans le secteur bancaire' },
-    { value: '550\u00a0000+', label: 'clients particuliers sur MyBIAT Retail' },
-    { value: '30\u00a0000+', label: 'entreprises clientes sur MyBIAT Corporate' },
+    { value: '550\u00a0000+', count: 550000, label: 'clients particuliers sur MyBIAT Retail' },
+    { value: '30\u00a0000+', count: 30000, label: 'entreprises clientes sur MyBIAT Corporate' },
   ],
   experiences: [
     {
@@ -153,15 +163,17 @@ export const PROFILE: Profile = {
   skills: [
     {
       category: 'Backend',
+      icon: 'server',
       items: ['Java', 'Spring Boot', 'Spring Security', 'Spring Data JPA / Hibernate', 'Project Reactor', 'JMS', 'Keycloak'],
     },
-    { category: 'Frontend', items: ['Angular', 'TypeScript', 'JavaScript'] },
-    { category: 'Tests & qualité', items: ['JUnit 5', 'Mockito', 'AssertJ', 'Jasmine / Karma', 'SonarQube'] },
-    { category: 'DevOps & CI/CD', items: ['Jenkins', 'Nexus', 'OpenShift (Kubernetes)', 'Helm', 'Docker'] },
-    { category: 'Bases de données', items: ['MSSQL', 'PostgreSQL', 'MySQL', 'Cloud Firestore (NoSQL)'] },
-    { category: 'Secteur bancaire', items: ['Backbase', 'Temenos T24'] },
+    { category: 'Frontend', icon: 'layout', items: ['Angular', 'TypeScript', 'JavaScript'] },
+    { category: 'Tests & qualité', icon: 'shield', items: ['JUnit 5', 'Mockito', 'AssertJ', 'Jasmine / Karma', 'SonarQube'] },
+    { category: 'DevOps & CI/CD', icon: 'cycle', items: ['Jenkins', 'Nexus', 'OpenShift (Kubernetes)', 'Helm', 'Docker'] },
+    { category: 'Bases de données', icon: 'database', items: ['MSSQL', 'PostgreSQL', 'MySQL', 'Cloud Firestore (NoSQL)'] },
+    { category: 'Secteur bancaire', icon: 'bank', items: ['Backbase', 'Temenos T24'] },
     {
       category: 'Outils',
+      icon: 'sliders',
       items: ['Maven', 'Git', 'Bitbucket', 'Jira', 'Confluence', 'Claude Code (IA)'],
     },
   ],
@@ -182,9 +194,24 @@ export const PROFILE: Profile = {
     },
   ],
   courses: [
-    { title: 'OAuth 2.0 in Spring Boot Applications', provider: 'Udemy', year: '2026' },
-    { title: 'Angular Testing Masterclass – Angular\u00a019', provider: 'Udemy', year: '2025' },
-    { title: 'Practical OpenShift for Developers – OpenShift\u00a04', provider: 'Udemy', year: '2025' },
+    {
+      title: 'OAuth 2.0 in Spring Boot Applications',
+      provider: 'Udemy',
+      year: '2026',
+      certificateUrl: 'https://www.udemy.com/certificate/UC-0a063094-e2d4-4cfd-9d9c-e81661f1699a/',
+    },
+    {
+      title: 'Angular Testing Masterclass – Angular\u00a019',
+      provider: 'Udemy',
+      year: '2025',
+      certificateUrl: 'https://www.udemy.com/certificate/UC-79433449-5edc-4940-9af1-a9d30b4225ea/',
+    },
+    {
+      title: 'Practical OpenShift for Developers – OpenShift\u00a04',
+      provider: 'Udemy',
+      year: '2025',
+      certificateUrl: 'https://www.udemy.com/certificate/UC-c0f99883-73ea-4898-b1ee-2ee19181a66f/',
+    },
   ],
   languages: ['Arabe\u00a0: langue maternelle', 'Français\u00a0: courant', 'Anglais\u00a0: courant'],
   interests: ['Échecs\u00a0: ancien membre de l’équipe nationale tunisienne U18 (2017)'],

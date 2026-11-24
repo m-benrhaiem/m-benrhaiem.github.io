@@ -1,44 +1,81 @@
+<div id="scroll-sentinel" class="scroll-sentinel" aria-hidden="true"></div>
 <a class="skip-link" href="#profil">Aller au contenu</a>
+<div class="scroll-progress" aria-hidden="true"></div>
 
-<header class="site-header" [class.menu-open]="menuOpen()">
+<header class="site-header" [class.menu-open]="menuOpen()" [class.scrolled]="scrolled()">
   <nav class="nav container" aria-label="Navigation principale">
-    <a class="brand" href="#top" (click)="closeMenu()">{{ data.name }}</a>
+    <a class="brand" href="#top" (click)="closeMenu()">
+      <span class="brand-mark" aria-hidden="true">MB</span>
+      <span class="brand-name">{{ data.name }}</span>
+    </a>
     <button
       class="menu-toggle"
       type="button"
       aria-controls="menu"
       [attr.aria-expanded]="menuOpen()"
+      [attr.aria-label]="menuOpen() ? 'Fermer le menu' : 'Ouvrir le menu'"
       (click)="toggleMenu()"
     >
-      <span class="sr-only">Ouvrir le menu</span>
       <span class="bar" aria-hidden="true"></span>
       <span class="bar" aria-hidden="true"></span>
       <span class="bar" aria-hidden="true"></span>
     </button>
     <ul id="menu" class="menu">
       @for (item of nav; track item.id) {
-        <li><a [href]="'#' + item.id" (click)="closeMenu()">{{ item.label }}</a></li>
+        <li>
+          <a
+            [href]="'#' + item.id"
+            [class.active]="activeSection() === item.id"
+            [attr.aria-current]="activeSection() === item.id ? 'true' : null"
+            (click)="closeMenu()"
+            >{{ item.label }}</a
+          >
+        </li>
       }
     </ul>
   </nav>
 </header>
 
 <main id="top">
-  <section class="hero" aria-labelledby="hero-title">
-    <div class="container">
-      <p class="eyebrow">{{ data.location }}</p>
-      <h1 id="hero-title">{{ data.name }}</h1>
-      <p class="hero-role">{{ data.title }} <span class="stack">· {{ data.stack }}</span></p>
-      <p class="lead">{{ data.tagline }}</p>
-      <div class="actions">
-        <a class="btn btn-primary" [href]="'mailto:' + data.email">Me contacter</a>
-        <a class="btn" [href]="data.cvFile" download>Télécharger le CV</a>
-        <a class="btn btn-ghost" [href]="data.linkedin" target="_blank" rel="noopener">LinkedIn</a>
+  <section id="accueil" class="hero" aria-labelledby="hero-title">
+    <div class="hero-grid-lines" aria-hidden="true"></div>
+    <div class="container hero-layout">
+      <div class="hero-text">
+        <p class="eyebrow enter" style="--i: 0">
+          <app-icon name="pin" />
+          {{ data.location }}
+        </p>
+        <h1 id="hero-title" class="enter" style="--i: 1">{{ data.name }}</h1>
+        <p class="hero-role enter" style="--i: 2">
+          {{ data.title }} <span class="stack">· {{ data.stack }}</span>
+        </p>
+        <p class="lead enter" style="--i: 3">{{ data.tagline }}</p>
+        <div class="actions enter" style="--i: 4">
+          <a class="btn btn-primary" [href]="'mailto:' + data.email">
+            <app-icon name="mail" />
+            Me contacter
+          </a>
+          <a class="btn" [href]="data.cvFile" download>
+            <app-icon name="download" />
+            Télécharger le CV
+          </a>
+          <a class="btn btn-ghost" [href]="data.linkedin" target="_blank" rel="noopener">
+            LinkedIn
+            <app-icon name="external" />
+          </a>
+        </div>
       </div>
+      <figure class="portrait enter" style="--i: 2">
+        <img [ngSrc]="data.photo" width="640" height="800" priority [alt]="'Portrait de ' + data.name" />
+      </figure>
+    </div>
+    <div class="container">
       <ul class="stats">
-        @for (stat of data.stats; track stat.label) {
-          <li>
-            <strong>{{ stat.value }}</strong>
+        @for (stat of data.stats; track stat.label; let i = $index) {
+          <li class="enter" [style.--i]="5 + i">
+            <strong [appCountUp]="stat.count" [countUpText]="stat.value" #counter="countUp">{{
+              counter.display()
+            }}</strong>
             <span>{{ stat.label }}</span>
           </li>
         }
@@ -48,17 +85,17 @@
 
   <section id="profil" class="section" aria-labelledby="profil-title">
     <div class="container narrow">
-      <h2 id="profil-title" class="section-title">Profil</h2>
-      <p class="summary">{{ data.summary }}</p>
+      <h2 id="profil-title" class="section-title" appReveal>Profil</h2>
+      <p class="summary" [appReveal]="100">{{ data.summary }}</p>
     </div>
   </section>
 
   <section id="experience" class="section alt" aria-labelledby="experience-title">
     <div class="container">
-      <h2 id="experience-title" class="section-title">Expérience professionnelle</h2>
+      <h2 id="experience-title" class="section-title" appReveal>Expérience professionnelle</h2>
       <ol class="timeline">
         @for (exp of data.experiences; track exp.company) {
-          <li class="card exp">
+          <li class="card exp" appReveal>
             <div class="exp-head">
               <div>
                 <h3>{{ exp.company }}</h3>
@@ -66,7 +103,10 @@
                   <p class="client">Client&nbsp;: {{ exp.client }}</p>
                 }
               </div>
-              <p class="place">{{ exp.location }}</p>
+              <p class="place">
+                <app-icon name="pin" />
+                {{ exp.location }}
+              </p>
             </div>
             <ul class="roles">
               @for (role of exp.roles; track role.title) {
@@ -108,11 +148,14 @@
 
   <section id="competences" class="section" aria-labelledby="competences-title">
     <div class="container">
-      <h2 id="competences-title" class="section-title">Compétences techniques</h2>
+      <h2 id="competences-title" class="section-title" appReveal>Compétences techniques</h2>
       <div class="skills-grid">
-        @for (group of data.skills; track group.category) {
-          <div class="card skill">
-            <h3>{{ group.category }}</h3>
+        @for (group of data.skills; track group.category; let i = $index) {
+          <div class="card skill lift" [appReveal]="(i % 4) * 80">
+            <div class="card-head">
+              <span class="card-icon"><app-icon [name]="group.icon" /></span>
+              <h3>{{ group.category }}</h3>
+            </div>
             <ul class="chips">
               @for (skill of group.items; track skill) {
                 <li>{{ skill }}</li>
@@ -126,14 +169,17 @@
 
   <section id="formation" class="section alt" aria-labelledby="formation-title">
     <div class="container">
-      <h2 id="formation-title" class="section-title">Formation</h2>
+      <h2 id="formation-title" class="section-title" appReveal>Formation</h2>
       <div class="edu-grid">
-        @for (edu of data.education; track edu.school) {
-          <article class="card edu">
-            <p class="period">{{ edu.period }}</p>
-            <h3>{{ edu.degree }}</h3>
-            <p class="school">{{ edu.school }}</p>
-            <p class="meta">{{ edu.university }} · {{ edu.location }}</p>
+        @for (edu of data.education; track edu.school; let i = $index) {
+          <article class="card edu lift" [appReveal]="i * 100">
+            <span class="card-icon"><app-icon name="cap" /></span>
+            <div>
+              <p class="period">{{ edu.period }}</p>
+              <h3>{{ edu.degree }}</h3>
+              <p class="school">{{ edu.school }}</p>
+              <p class="meta">{{ edu.university }} · {{ edu.location }}</p>
+            </div>
           </article>
         }
       </div>
@@ -142,29 +188,48 @@
 
   <section id="plus" class="section" aria-labelledby="plus-title">
     <div class="container">
-      <h2 id="plus-title" class="section-title">Informations complémentaires</h2>
+      <h2 id="plus-title" class="section-title" appReveal>Informations complémentaires</h2>
       <div class="extras-grid">
-        <div class="card extra">
-          <h3>Autoformation</h3>
-          <ul class="plain">
+        <div class="card extra lift" appReveal>
+          <div class="card-head">
+            <span class="card-icon"><app-icon name="book" /></span>
+            <h3>Autoformation</h3>
+          </div>
+          <ul class="courses">
             @for (course of data.courses; track course.title) {
               <li>
-                <span>{{ course.title }}</span>
+                <span class="course-title">{{ course.title }}</span>
                 <span class="meta">{{ course.provider }} · {{ course.year }}</span>
+                <a
+                  class="cert-link"
+                  [href]="course.certificateUrl"
+                  target="_blank"
+                  rel="noopener"
+                  [attr.aria-label]="'Voir le certificat : ' + course.title"
+                >
+                  <app-icon name="award" />
+                  Voir le certificat
+                </a>
               </li>
             }
           </ul>
         </div>
-        <div class="card extra">
-          <h3>Langues</h3>
+        <div class="card extra lift" [appReveal]="100">
+          <div class="card-head">
+            <span class="card-icon"><app-icon name="globe" /></span>
+            <h3>Langues</h3>
+          </div>
           <ul class="plain">
             @for (language of data.languages; track language) {
               <li>{{ language }}</li>
             }
           </ul>
         </div>
-        <div class="card extra">
-          <h3>Centres d’intérêt</h3>
+        <div class="card extra lift" [appReveal]="200">
+          <div class="card-head">
+            <span class="card-icon"><app-icon name="pawn" /></span>
+            <h3>Centres d’intérêt</h3>
+          </div>
           <ul class="plain">
             @for (interest of data.interests; track interest) {
               <li>{{ interest }}</li>
@@ -175,25 +240,36 @@
     </div>
   </section>
 
-  <section id="contact" class="section alt contact" aria-labelledby="contact-title">
-    <div class="container narrow">
-      <h2 id="contact-title" class="section-title">Contact</h2>
-      <p class="summary">Vous pouvez me joindre par e-mail ou sur LinkedIn.</p>
-      <ul class="contact-list">
-        <li>
-          <span class="label">E-mail</span>
-          <a [href]="'mailto:' + data.email">{{ data.email }}</a>
-        </li>
-        <li>
-          <span class="label">LinkedIn</span>
-          <a [href]="data.linkedin" target="_blank" rel="noopener">{{ data.linkedinLabel }}</a>
-        </li>
-        <li>
-          <span class="label">Localisation</span>
-          <span>{{ data.location }}</span>
-        </li>
-      </ul>
-      <a class="btn btn-primary" [href]="data.cvFile" download>Télécharger le CV (PDF)</a>
+  <section id="contact" class="section alt" aria-labelledby="contact-title">
+    <div class="container">
+      <div class="contact-card" appReveal>
+        <div class="contact-text">
+          <h2 id="contact-title" class="section-title">Contact</h2>
+          <p class="summary">Vous pouvez me joindre par e-mail ou sur LinkedIn.</p>
+          <p class="contact-place">
+            <app-icon name="pin" />
+            {{ data.location }}
+          </p>
+        </div>
+        <div class="contact-actions">
+          <a class="btn btn-light" [href]="'mailto:' + data.email">
+            <app-icon name="mail" />
+            {{ data.email }}
+          </a>
+          <a class="btn btn-outline-light" [href]="data.linkedin" target="_blank" rel="noopener">
+            LinkedIn
+            <app-icon name="external" />
+          </a>
+          <a class="btn btn-outline-light" [href]="data.github" target="_blank" rel="noopener">
+            <app-icon name="code" />
+            GitHub
+          </a>
+          <a class="btn btn-outline-light" [href]="data.cvFile" download>
+            <app-icon name="download" />
+            Télécharger le CV (PDF)
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 </main>
@@ -201,6 +277,14 @@
 <footer class="site-footer">
   <div class="container footer-inner">
     <span>&copy; {{ year }} {{ data.name }}</span>
-    <span>Site développé avec Angular · <a [href]="data.github" target="_blank" rel="noopener">GitHub</a></span>
+    <span class="footer-links">
+      Site développé avec Angular ·
+      <a [href]="data.sourceCode" target="_blank" rel="noopener">Code source</a>
+      ·
+      <a class="to-top" href="#top">
+        Haut de page
+        <app-icon name="arrowUp" />
+      </a>
+    </span>
   </div>
 </footer>

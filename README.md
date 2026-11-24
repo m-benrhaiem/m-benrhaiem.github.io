@@ -3,6 +3,13 @@
 Site personnel de Mohamed Ben Rhaiem, développeur Full Stack Java / Spring Boot / Angular.
 Application Angular 22 sans zone.js (zoneless), avec composants standalone, signals et syntaxe de contrôle `@for` / `@if`, déployée sur GitHub Pages.
 
+- Animations : entrée du hero en cascade, apparition des sections au défilement (directive `appReveal`),
+  compteurs animés (directive `appCountUp`), barre de progression de lecture, navigation qui suit la section affichée.
+  Toutes respectent la préférence système « réduire les animations ».
+- Photo optimisée (`NgOptimizedImage`, WebP), mode sombre automatique, site responsive.
+- SEO : balises Open Graph / Twitter avec image de partage, données structurées JSON-LD (`Person`).
+- Test de fumée dans la CI : le build est chargé dans Chrome avant chaque déploiement.
+
 ## Lancer le site en local
 
 Prérequis : Node.js 22.22.3+, 24.15+ ou 26 (versions exigées par Angular 22).
@@ -11,6 +18,7 @@ Prérequis : Node.js 22.22.3+, 24.15+ ou 26 (versions exigées par Angular 22).
 npm install
 npm start          # http://localhost:4200
 npm run build      # build de production dans dist/portfolio/browser
+npm run test:smoke # test de fumée du build dans Chrome (Chrome installé, ou CHROME_PATH)
 ```
 
 Après le premier `npm install`, versionner le fichier `package-lock.json` : le workflow utilisera alors `npm ci`.
@@ -22,7 +30,8 @@ Tout le texte du site (profil, expériences, compétences, formation…) est dan
 
 ## Déployer sur GitHub Pages
 
-Le workflow `.github/workflows/deploy.yml` compile et publie le site à chaque push sur `main`.
+Le workflow `.github/workflows/deploy.yml` compile le site, le teste dans Chrome puis le publie à chaque push sur `main`.
+Si le test échoue, rien n'est publié : le site en ligne reste sur la version précédente.
 
 1. Créer un dépôt public sur GitHub :
    - `m-benrhaiem.github.io` pour une adresse du type `https://m-benrhaiem.github.io/` ;
@@ -49,12 +58,18 @@ src/
   main.ts               démarrage de l'application
   app/
     app.config.ts       configuration (détection de changements zoneless)
-    app.ts              composant racine (navigation, menu mobile)
+    app.ts              composant racine (navigation active, en-tête, menu mobile)
     app.html            template de la page
     data/profile.ts     contenu du portfolio
+    reveal.directive.ts apparition au défilement
+    count-up.directive.ts compteurs animés
+    icon.ts, icons.ts   icônes SVG
 public/
   CV_Mohamed_Ben_Rhaiem.pdf
   favicon.svg
+  images/               photo (WebP) et image de partage Open Graph
+scripts/
+  smoke-test.mjs        test de fumée (Playwright + Chrome)
 ```
 
 Police : Open Sans, auto-hébergée via le paquet npm `@fontsource/open-sans` (licence SIL Open Font License 1.1),
