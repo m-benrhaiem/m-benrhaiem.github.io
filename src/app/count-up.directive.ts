@@ -6,9 +6,9 @@ const DURATION_MS = 1600;
 
 /**
  * Compteur animé : affiche 0 puis compte jusqu'à la valeur cible quand l'élément devient visible,
- * et termine sur le texte exact fourni (par exemple « 550 000+ »).
+ * et termine sur le texte exact fourni (par exemple « 415 000+ »).
  *
- * `<strong [appCountUp]="550000" countUpText="550 000+" #counter="countUp">{{ counter.display() }}</strong>`
+ * `<strong [appCountUp]="415000" countUpText="415 000+" #counter="countUp">{{ counter.display() }}</strong>`
  * Sans valeur cible, ou avec « réduire les animations », le texte final est affiché directement.
  */
 @Directive({ selector: '[appCountUp]', exportAs: 'countUp' })

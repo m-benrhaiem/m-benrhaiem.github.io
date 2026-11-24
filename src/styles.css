@@ -832,7 +832,7 @@ a:hover {
 
 .highlights li {
   display: grid;
-  grid-template-columns: 150px 1fr;
+  grid-template-columns: 190px 1fr;
   gap: 18px;
   align-items: baseline;
 }
@@ -875,8 +875,30 @@ a:hover {
 
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
+}
+
+/* Compétences clés : carte mise en avant sur toute la largeur. */
+.skill.featured {
+  grid-column: 1 / -1;
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--line));
+  background: linear-gradient(135deg, var(--accent-soft), var(--card) 65%);
+}
+
+.skill.featured .card-icon {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.skill.featured .chips li {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.skill.featured .chips li:hover {
+  border-color: transparent;
+  background: var(--accent-strong);
 }
 
 .skill {
@@ -1143,6 +1165,10 @@ a:hover {
     gap: 28px;
   }
 
+  .skills-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .contact-actions {
     min-width: 0;
   }
@@ -1280,7 +1306,8 @@ a:hover {
   }
 
   .edu-grid,
-  .extras-grid {
+  .extras-grid,
+  .skills-grid {
     grid-template-columns: 1fr;
   }
 

@@ -26,7 +26,7 @@ const TYPES = {
   '.txt': 'text/plain; charset=utf-8',
 };
 // Valeurs finales attendues des compteurs (voir src/app/data/profile.ts).
-const EXPECTED_STATS = ['Près de 3 ans', '550 000+', '30 000+'];
+const EXPECTED_STATS = ['Plus de 2 ans', '415 000+', '19 000+'];
 const SECTIONS = ['accueil', 'profil', 'experience', 'competences', 'formation', 'plus', 'contact'];
 
 // Le site est servi sous le même chemin de base que le build (ex. « / » ou « /nom-du-depot/»).

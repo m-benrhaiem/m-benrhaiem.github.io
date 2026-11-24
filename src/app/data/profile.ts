@@ -84,7 +84,7 @@ export interface Profile {
 
 export const PROFILE: Profile = {
   name: 'Mohamed Ben Rhaiem',
-  title: 'Développeur Full Stack',
+  title: 'Ingénieur Full Stack',
   stack: 'Java / Spring Boot / Angular',
   location: 'Tunis, Tunisie',
   email: 'benrhaiem.med@gmail.com',
@@ -97,11 +97,11 @@ export const PROFILE: Profile = {
   tagline:
     'Je développe des microservices Spring Boot, des applications Angular et des intégrations avec le core banking pour la banque digitale.',
   summary:
-    'Ingénieur en informatique diplômé de l’ENSI, développeur Full Stack Java / Spring Boot et Angular avec près de trois ans d’expérience, principalement dans le secteur bancaire. Spécialisé dans le développement de microservices et d’API REST, l’intégration avec le core banking Temenos T24 et la réalisation d’applications web. J’évolue au sein d’équipes Agile / Scrum et participe aux processus CI/CD, notamment avec Jenkins, Nexus et OpenShift.',
+    'Ingénieur en informatique diplômé de l’ENSI, développeur Full Stack spécialisé en Java / Spring Boot et Angular, avec plus de deux ans d’expérience professionnelle dans la banque digitale. Expérience dans la conception de microservices, l’intégration de systèmes bancaires complexes et la modernisation d’applications. Habitué aux environnements Agile et aux exigences de sécurité et de qualité logicielle.',
   stats: [
-    { value: 'Près de 3 ans', label: 'd’expérience, principalement dans le secteur bancaire' },
-    { value: '550\u00a0000+', count: 550000, label: 'clients particuliers sur MyBIAT Retail' },
-    { value: '30\u00a0000+', count: 30000, label: 'entreprises clientes sur MyBIAT Corporate' },
+    { value: 'Plus de 2 ans', label: 'd’expérience professionnelle dans la banque digitale' },
+    { value: '415\u00a0000+', count: 415000, label: 'clients particuliers sur MyBIAT Retail' },
+    { value: '19\u00a0000+', count: 19000, label: 'entreprises clientes sur MyBIAT Corporate' },
   ],
   experiences: [
     {
@@ -112,31 +112,35 @@ export const PROFILE: Profile = {
         { title: 'Développeur Full Stack', period: 'octobre 2024 – aujourd’hui' },
         { title: 'Stagiaire Développeur Full Stack', period: 'février 2024 – août 2024' },
       ],
-      context: 'Plateformes de banque digitale de la BIAT basées sur Backbase · équipe Agile / Scrum',
+      context: 'Plateformes de banque digitale de la BIAT basées sur Backbase · équipe Scrum',
       projects: [
-        { name: 'MyBIAT Retail', audience: 'plus de 550\u00a0000 clients particuliers' },
-        { name: 'MyBIAT Corporate', audience: 'plus de 30\u00a0000 entreprises' },
+        { name: 'MyBIAT Retail', audience: 'plus de 415\u00a0000 clients particuliers' },
+        { name: 'MyBIAT Corporate', audience: 'plus de 19\u00a0000 entreprises' },
       ],
       highlights: [
         {
-          title: 'Full Stack',
-          text: 'Développement de microservices Java / Spring Boot et de fonctionnalités frontend Angular, avec des API REST conçues en contract-first (OpenAPI) pour permettre aux équipes backend et frontend de travailler en parallèle.',
+          title: 'Développement full stack',
+          text: 'Microservices Java / Spring Boot et fonctionnalités Angular, avec des API REST contract-first (OpenAPI) facilitant le développement parallèle des équipes frontend et backend.',
+        },
+        {
+          title: 'Plateforme d’approbation',
+          text: 'Conception et réalisation en autonomie d’une plateforme web de gestion des approbations (Angular, Spring Boot), utilisée comme accélérateur pour réduire les scripts SQL et optimiser les processus de déploiement.',
+        },
+        {
+          title: 'Intégration bancaire',
+          text: 'Intégration sécurisée avec le core banking Temenos T24 et développement de consommateurs JMS (ActiveMQ Artemis) pour synchroniser les données bancaires en temps réel.',
         },
         {
           title: 'Sécurité',
-          text: 'Réalisation d’extensions sur les authenticators Keycloak pour adapter les flux d’authentification.',
+          text: 'Extensions d’authenticators Keycloak pour adapter l’authentification aux besoins fonctionnels de la plateforme.',
         },
         {
-          title: 'Core banking',
-          text: 'Intégration avec le core banking Temenos T24\u00a0: échanges sécurisés via API (flux entrants et sortants) et implémentation de consommateurs JMS (ActiveMQ Artemis) synchronisant en temps réel produits et transactions.',
+          title: 'Modernisation',
+          text: 'Contribution à la migration Spring Boot / Jakarta EE et à la montée de version Angular.',
         },
         {
-          title: 'Évolution',
-          text: 'Contribution à la montée de version majeure de la plateforme\u00a0: mise à niveau Angular et migration Spring Boot / Jakarta EE.',
-        },
-        {
-          title: 'Qualité & CI/CD',
-          text: 'Tests unitaires JUnit 5 / Mockito / AssertJ avec 80\u00a0% de couverture et analyse SonarQube\u00a0; participation aux pipelines CI/CD (build Jenkins, publication Nexus, déploiement OpenShift).',
+          title: 'Qualité & déploiement',
+          text: 'Tests unitaires JUnit 5, Mockito et AssertJ atteignant 80\u00a0% de couverture sur le périmètre concerné, analyse SonarQube et participation aux processus CI/CD (Jenkins, Nexus, OpenShift).',
         },
       ],
       technologies: [
@@ -162,19 +166,39 @@ export const PROFILE: Profile = {
   ],
   skills: [
     {
-      category: 'Backend',
-      icon: 'server',
-      items: ['Java', 'Spring Boot', 'Spring Security', 'Spring Data JPA / Hibernate', 'Project Reactor', 'JMS', 'Keycloak'],
+      category: 'Compétences clés',
+      icon: 'star',
+      items: ['Java', 'Spring Boot', 'Spring Security', 'Spring Data JPA / Hibernate', 'API REST / OpenAPI', 'Angular', 'TypeScript', 'JavaScript'],
     },
-    { category: 'Frontend', icon: 'layout', items: ['Angular', 'TypeScript', 'JavaScript'] },
-    { category: 'Tests & qualité', icon: 'shield', items: ['JUnit 5', 'Mockito', 'AssertJ', 'Jasmine / Karma', 'SonarQube'] },
-    { category: 'DevOps & CI/CD', icon: 'cycle', items: ['Jenkins', 'Nexus', 'OpenShift (Kubernetes)', 'Helm', 'Docker'] },
-    { category: 'Bases de données', icon: 'database', items: ['MSSQL', 'PostgreSQL', 'MySQL', 'Cloud Firestore (NoSQL)'] },
-    { category: 'Secteur bancaire', icon: 'bank', items: ['Backbase', 'Temenos T24'] },
+    {
+      category: 'Tests & qualité',
+      icon: 'shield',
+      items: ['JUnit 5', 'Mockito', 'AssertJ', 'SonarQube', 'Jasmine / Karma'],
+    },
+    {
+      category: 'Intégration bancaire',
+      icon: 'bank',
+      items: ['Temenos T24', 'JMS / ActiveMQ Artemis', 'Keycloak', 'Backbase'],
+    },
+    {
+      category: 'Bases de données',
+      icon: 'database',
+      items: ['MSSQL', 'PostgreSQL', 'MySQL'],
+    },
+    {
+      category: 'CI/CD & déploiement',
+      icon: 'cycle',
+      items: ['Jenkins', 'Nexus', 'OpenShift (Kubernetes)', 'Docker', 'Helm'],
+    },
     {
       category: 'Outils',
       icon: 'sliders',
-      items: ['Maven', 'Git', 'Bitbucket', 'Jira', 'Confluence', 'Claude Code (IA)'],
+      items: ['Git', 'Maven', 'Bitbucket', 'Jira', 'Confluence', 'Claude Code (IA)'],
+    },
+    {
+      category: 'Notions',
+      icon: 'layers',
+      items: ['Project Reactor', 'Cloud Firestore (NoSQL)'],
     },
   ],
   education: [

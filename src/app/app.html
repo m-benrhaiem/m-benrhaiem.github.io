@@ -150,8 +150,8 @@
     <div class="container">
       <h2 id="competences-title" class="section-title" appReveal>Compétences techniques</h2>
       <div class="skills-grid">
-        @for (group of data.skills; track group.category; let i = $index) {
-          <div class="card skill lift" [appReveal]="(i % 4) * 80">
+        @for (group of data.skills; track group.category; let i = $index; let first = $first) {
+          <div class="card skill lift" [class.featured]="first" [appReveal]="(i % 3) * 80">
             <div class="card-head">
               <span class="card-icon"><app-icon [name]="group.icon" /></span>
               <h3>{{ group.category }}</h3>
