@@ -124,7 +124,7 @@ export const PROFILE: Profile = {
         },
         {
           title: 'Plateforme d’approbation',
-          text: 'Conception et réalisation en autonomie d’une plateforme web de gestion des approbations (Angular, Spring Boot), utilisée comme accélérateur pour réduire les scripts SQL et optimiser les processus de déploiement.',
+          text: 'Conception et développement en autonomie d’une plateforme full stack (Angular / Spring Boot) automatisant les workflows d’approbation\u00a0: réduction des interventions SQL manuelles, plus d’une heure gagnée par mise en production et développements liés aux approbations ramenés de 3\u00a0jours-homme à quelques minutes.',
         },
         {
           title: 'Intégration bancaire',
@@ -194,11 +194,6 @@ export const PROFILE: Profile = {
       category: 'Outils',
       icon: 'sliders',
       items: ['Git', 'Maven', 'Bitbucket', 'Jira', 'Confluence', 'Claude Code (IA)'],
-    },
-    {
-      category: 'Notions',
-      icon: 'layers',
-      items: ['Project Reactor', 'Cloud Firestore (NoSQL)'],
     },
   ],
   education: [

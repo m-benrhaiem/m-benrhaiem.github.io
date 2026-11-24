@@ -874,14 +874,18 @@ a:hover {
 /* ---------- Compétences ---------- */
 
 .skills-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 18px;
 }
 
+.skills-grid .skill {
+  flex: 1 1 300px;
+}
+
 /* Compétences clés : carte mise en avant sur toute la largeur. */
-.skill.featured {
-  grid-column: 1 / -1;
+.skills-grid .skill.featured {
+  flex-basis: 100%;
   border-color: color-mix(in srgb, var(--accent) 35%, var(--line));
   background: linear-gradient(135deg, var(--accent-soft), var(--card) 65%);
 }
@@ -1165,9 +1169,6 @@ a:hover {
     gap: 28px;
   }
 
-  .skills-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 
   .contact-actions {
     min-width: 0;
@@ -1306,8 +1307,7 @@ a:hover {
   }
 
   .edu-grid,
-  .extras-grid,
-  .skills-grid {
+  .extras-grid {
     grid-template-columns: 1fr;
   }
 
